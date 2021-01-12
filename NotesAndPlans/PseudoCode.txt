@@ -1,0 +1,9 @@
+Requirements:
+
+Data from something (JSON, SQLite, MySQL):
+    First Name, Last Name, Address, Phone Number
+
+    Savings account per customer
+
+    Accounts can have more than one owner
+
