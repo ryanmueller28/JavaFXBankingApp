@@ -27,6 +27,11 @@ public class Account {
         Random prng = new Random();
         String acctString = "";
 
+        /**
+         * Generate a random account number
+         * of type Long
+         * With 12 ^ 9 combinations: Over 5 billion
+         */
         for (int i = 0; i < 12; i++){
             int inNum = prng.nextInt(9);
             acctString += inNum;

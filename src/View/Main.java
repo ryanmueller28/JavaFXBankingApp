@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class Main extends Application implements AppView {
+    // Dark Mode css theme
     private String urlDarkTheme = getClass().getResource("modena_dark.css").toExternalForm();
 
     private MenuBar mnuBar;
@@ -38,10 +40,16 @@ public class Main extends Application implements AppView {
 
         primaryScene = new Scene(new VBox(), 1280, 720);
         ((VBox) primaryScene.getRoot()).getChildren().addAll(mnuBar);
+
+        Image appIcon = new Image("https://st.depositphotos.com/1732591/1280/v/600/depositphotos_12800548-stock-illustration-money-bag-with-dollar-sign.jpg");
+
         // This makes it so there's a close prompt on pressing the application's X button
         primaryStage.setOnCloseRequest(e -> confirmExit());
+        primaryStage.getIcons().add(appIcon);
         primaryStage.setScene(primaryScene);
+
         primaryStage.setTitle("Banking App");
+
 
         controller = new Controller(this);
 
@@ -207,12 +215,16 @@ public class Main extends Application implements AppView {
 
     public void setLightTheme(){
         primaryScene.getStylesheets().remove(urlDarkTheme);
-        createUserScene.getStylesheets().remove(urlDarkTheme);
+        if (createUserScene != null) {
+            createUserScene.getStylesheets().remove(urlDarkTheme);
+        }
     }
 
     public void setDarkTheme() {
         primaryScene.getStylesheets().add(urlDarkTheme);
-        createUserScene.getStylesheets().add(urlDarkTheme);
+        if (createUserScene != null) {
+            createUserScene.getStylesheets().add(urlDarkTheme);
+        }
     }
 
 }
