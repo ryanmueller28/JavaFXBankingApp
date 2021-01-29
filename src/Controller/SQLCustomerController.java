@@ -3,25 +3,32 @@ package Controller;
 import Model.Customer;
 
 import java.sql.*;
+import java.util.Scanner;
 
 
 public class SQLCustomerController {
-    private static String jbdcSchema = "jdbc:mysql://192.168.0.68:3306/?user=ryan";
-    private static String sqlUsrName = "ryan";
-    private static String sqlUsrPwd = "";
-    private static String databaseName = "DevCustomerDatabase";
+    private static String jbdcSchema = ""; // replace with jbdc specific schema
+    private static String sqlUsrName = ""; // replace with jbdc specific usr name, pass to interact screen
+    private static String sqlUsrPwd = ""; // pass to interact screen
+    private static String databaseName = "";
+
+    public void setSqlUsrName(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Input your user name: ");
+        sqlUsrName = sc.nextLine();
+    }
+
+    public void setSqlUsrPwd(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Input your password: ");
+        sqlUsrPwd = sc.nextLine();
+    }
+
 
     Connection connection = DriverManager.getConnection(jbdcSchema, sqlUsrName, sqlUsrName);
     Statement statement = null;
     // Customer Array
 
-/*
-    Statement statement = connection.createStatement();*/
-
-    /**
-     * Get the database on the Raspberry Pi
-     * @throws SQLException
-     */
     public SQLCustomerController() throws SQLException {
 
     }
@@ -91,7 +98,39 @@ public class SQLCustomerController {
     }
 
     public void addCustomerToDB(Customer customerToAdd){
+        String insertBegin = "INSERT INTO Customers " +
+                "(ID, FirstName, LastName, Address, PhoneNumber, CheckingAccountNum, SavingsAccountNum)";
 
+        String whatToInsert = "VALUES(" + customerToAdd.getId()
+                + customerToAdd.getFirstName() + customerToAdd.getLastName() +
+                customerToAdd.getAddress() + customerToAdd.getPhoneNumber() +
+                customerToAdd.getCheckingAccount() + customerToAdd.getSavingsAccount() + ")";
+
+        String insertCustomerStatement = insertBegin + whatToInsert;
+
+        try{
+            statement = connection.createStatement();
+            statement.execute(insertCustomerStatement);
+        } catch (SQLException se) {
+            se.printStackTrace();;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if (statement != null){
+                    statement.close();
+                }
+            }catch (SQLException se2){
+
+            }try{
+                if (connection != null){
+                    connection.close();
+                }
+            }catch (SQLException se3){
+                se3.printStackTrace();
+            }
+        }
     }
 
 }
