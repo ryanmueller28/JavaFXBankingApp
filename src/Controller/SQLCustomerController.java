@@ -6,40 +6,16 @@ import java.sql.*;
 import java.util.Scanner;
 
 
-public class SQLCustomerController {
-    private String jbdcSchema = ""; // replace with jbdc specific schema
-    private String sqlUsrName = ""; // replace with jbdc specific usr name, pass to interact screen
-    private String sqlUsrPwd = ""; // pass to interact screen
-    private String databaseName = "BankInfo";
-
-    public String getSqlUsrName(){
-        return sqlUsrName;
-    }
-
-
-    public void setSqlUsrName(String sqlUsr){
-        this.sqlUsrName = sqlUsr;
-    }
-
-    public String getSqlUsrPwd() {
-        return sqlUsrPwd;
-    }
-
-    public void setSqlUsrPwd(String sqlUsrPwd) {
-        this.sqlUsrPwd = sqlUsrPwd;
-    }
-
-
-    Connection connection = DriverManager.getConnection(jbdcSchema, sqlUsrName, sqlUsrPwd);
-    Statement statement = null;
-    // Customer Array
+public class SQLCustomerController extends SQLBaseHelper {
 
     public SQLCustomerController() throws SQLException {
 
     }
 
+    Connection connection = null;
+
     public void createCustomerDB(){
-        String createTableCustomer = "CREATE DATABASE0" + databaseName;
+        String createTableCustomer = "CREATE DATABASE" + super.getDatabaseName();
         try{
             statement = connection.createStatement();
             statement.execute(createTableCustomer);
@@ -63,7 +39,6 @@ public class SQLCustomerController {
                 se3.printStackTrace();
             }
         }
-
         createCustomerTable();
     }
 
@@ -80,8 +55,7 @@ public class SQLCustomerController {
             statement = connection.createStatement();
             statement.execute(SQLCreateCustomerTable);
         } catch (SQLException se) {
-            se.printStackTrace();;
-
+            se.printStackTrace();
         }catch (Exception e){
             e.printStackTrace();
         }finally{

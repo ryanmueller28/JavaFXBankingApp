@@ -31,6 +31,8 @@ public class Main extends Application implements AppView {
 
     private UIUserCreate createUserPane;
 
+    private UISQLLogin uisqlLogin;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -50,11 +52,29 @@ public class Main extends Application implements AppView {
 
         primaryStage.setTitle("Banking App");
 
+        uisqlLogin = new UISQLLogin();
+
+        Stage loginStage = new Stage();
+
+        uisqlLogin.startPopup(loginStage);
 
         controller = new Controller(this);
 
+        /**
+         * This bit of code checks if the login button is pressed
+         */
+        uisqlLogin.getLoginButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                primaryStage.show();
+                loginStage.hide();
+            }
+        });
+
         /*scene.setOnKeyPressed(controller);*/
-        primaryStage.show();
+        loginStage.show();
+
+
     }
 
 
