@@ -7,25 +7,30 @@ import java.util.Scanner;
 
 
 public class SQLCustomerController {
-    private static String jbdcSchema = ""; // replace with jbdc specific schema
-    private static String sqlUsrName = ""; // replace with jbdc specific usr name, pass to interact screen
-    private static String sqlUsrPwd = ""; // pass to interact screen
-    private static String databaseName = "";
+    private String jbdcSchema = ""; // replace with jbdc specific schema
+    private String sqlUsrName = ""; // replace with jbdc specific usr name, pass to interact screen
+    private String sqlUsrPwd = ""; // pass to interact screen
+    private String databaseName = "BankInfo";
 
-    public void setSqlUsrName(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Input your user name: ");
-        sqlUsrName = sc.nextLine();
-    }
-
-    public void setSqlUsrPwd(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Input your password: ");
-        sqlUsrPwd = sc.nextLine();
+    public String getSqlUsrName(){
+        return sqlUsrName;
     }
 
 
-    Connection connection = DriverManager.getConnection(jbdcSchema, sqlUsrName, sqlUsrName);
+    public void setSqlUsrName(String sqlUsr){
+        this.sqlUsrName = sqlUsr;
+    }
+
+    public String getSqlUsrPwd() {
+        return sqlUsrPwd;
+    }
+
+    public void setSqlUsrPwd(String sqlUsrPwd) {
+        this.sqlUsrPwd = sqlUsrPwd;
+    }
+
+
+    Connection connection = DriverManager.getConnection(jbdcSchema, sqlUsrName, sqlUsrPwd);
     Statement statement = null;
     // Customer Array
 
@@ -34,12 +39,12 @@ public class SQLCustomerController {
     }
 
     public void createCustomerDB(){
-        String createTableCustomer = "CREATE DATABASE BankInfo";
+        String createTableCustomer = "CREATE DATABASE0" + databaseName;
         try{
             statement = connection.createStatement();
             statement.execute(createTableCustomer);
         } catch (SQLException se) {
-            se.printStackTrace();;
+            se.printStackTrace();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -63,7 +68,7 @@ public class SQLCustomerController {
     }
 
     public void createCustomerTable(){
-        String SQLCreateCustomerTable = "CREATE TABLE CUSTOMER (" +
+        String SQLCreateCustomerTable = "CREATE TABLE Customers (" +
                 "ID int, " +
                 "FirstName varchar(255)," +
                 "LastName varchar(255)," +
@@ -101,10 +106,10 @@ public class SQLCustomerController {
         String insertBegin = "INSERT INTO Customers " +
                 "(ID, FirstName, LastName, Address, PhoneNumber, CheckingAccountNum, SavingsAccountNum)";
 
-        String whatToInsert = "VALUES(" + customerToAdd.getId()
-                + customerToAdd.getFirstName() + customerToAdd.getLastName() +
-                customerToAdd.getAddress() + customerToAdd.getPhoneNumber() +
-                customerToAdd.getCheckingAccount() + customerToAdd.getSavingsAccount() + ")";
+        String whatToInsert = "VALUES(" + customerToAdd.getId() + ", "
+                + customerToAdd.getFirstName() + ", " + customerToAdd.getLastName() + ", " +
+                customerToAdd.getAddress() + ", " + customerToAdd.getPhoneNumber()  + ", " +
+                customerToAdd.getCheckingAccount() + ", " + customerToAdd.getSavingsAccount() + ")";
 
         String insertCustomerStatement = insertBegin + whatToInsert;
 
@@ -132,5 +137,6 @@ public class SQLCustomerController {
             }
         }
     }
+
 
 }
