@@ -2,7 +2,7 @@ package View;
 
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
@@ -20,8 +20,6 @@ public class UIHome extends GridPane {
     Button changeUsrBtn = new Button("Change User");
     Button logoutBtn = new Button("Log out");
     Button exitBtn = new Button("Exit");
-
-    GridPane root = new GridPane();
 
     public UIHome(){
         super();
