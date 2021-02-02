@@ -74,7 +74,5 @@ public class UIUserCreate extends GridPane {
 
         add(submit, 4, 1, 1,1);
         setHalignment(submit, HPos.CENTER);
-
-
     }
 }

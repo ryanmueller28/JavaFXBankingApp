@@ -31,6 +31,8 @@ public class Main extends Application implements AppView {
 
     private UIUserCreate createUserPane;
 
+    private UIHome uiHome;
+
     private UISQLLogin uisqlLogin;
 
     @Override
@@ -40,8 +42,10 @@ public class Main extends Application implements AppView {
 
         configureMenus();
 
+        uiHome = new UIHome();
+
         primaryScene = new Scene(new VBox(), 1280, 720);
-        ((VBox) primaryScene.getRoot()).getChildren().addAll(mnuBar);
+        ((VBox) primaryScene.getRoot()).getChildren().addAll(mnuBar, uiHome);
 
         Image appIcon = new Image("https://st.depositphotos.com/1732591/1280/v/600/depositphotos_12800548-stock-illustration-money-bag-with-dollar-sign.jpg");
 
@@ -66,6 +70,12 @@ public class Main extends Application implements AppView {
         uisqlLogin.getLoginButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+
+                /**
+                 * TO DO:
+                 * Check for SQL Login first, then do this
+                 */
+
                 primaryStage.show();
                 loginStage.hide();
             }
