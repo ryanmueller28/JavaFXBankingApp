@@ -1,0 +1,7 @@
+TO DO:
+
+Login:
+    Have UISQLLogin pop up first, can't get to main scene before login.
+
+Main screen:
+    Have ui buttons to go to add user, see user, see account, etc.

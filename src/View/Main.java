@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class Main extends Application implements AppView {
+    // Dark Mode css theme
     private String urlDarkTheme = getClass().getResource("modena_dark.css").toExternalForm();
 
     private MenuBar mnuBar;
@@ -29,6 +31,10 @@ public class Main extends Application implements AppView {
 
     private UIUserCreate createUserPane;
 
+    private UIHome uiHome;
+
+    private UISQLLogin uisqlLogin;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -36,17 +42,49 @@ public class Main extends Application implements AppView {
 
         configureMenus();
 
+        uiHome = new UIHome();
+
         primaryScene = new Scene(new VBox(), 1280, 720);
-        ((VBox) primaryScene.getRoot()).getChildren().addAll(mnuBar);
+        ((VBox) primaryScene.getRoot()).getChildren().addAll(mnuBar, uiHome);
+
+        Image appIcon = new Image("https://st.depositphotos.com/1732591/1280/v/600/depositphotos_12800548-stock-illustration-money-bag-with-dollar-sign.jpg");
+
         // This makes it so there's a close prompt on pressing the application's X button
         primaryStage.setOnCloseRequest(e -> confirmExit());
+        primaryStage.getIcons().add(appIcon);
         primaryStage.setScene(primaryScene);
+
         primaryStage.setTitle("Banking App");
+
+        uisqlLogin = new UISQLLogin();
+
+        Stage loginStage = new Stage();
+
+        uisqlLogin.startPopup(loginStage);
 
         controller = new Controller(this);
 
+        /**
+         * This bit of code checks if the login button is pressed
+         */
+        uisqlLogin.getLoginButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                /**
+                 * TO DO:
+                 * Check for SQL Login first, then do this
+                 */
+
+                primaryStage.show();
+                loginStage.hide();
+            }
+        });
+
         /*scene.setOnKeyPressed(controller);*/
-        primaryStage.show();
+        loginStage.show();
+
+
     }
 
 
@@ -207,12 +245,16 @@ public class Main extends Application implements AppView {
 
     public void setLightTheme(){
         primaryScene.getStylesheets().remove(urlDarkTheme);
-        createUserScene.getStylesheets().remove(urlDarkTheme);
+        if (createUserScene != null) {
+            createUserScene.getStylesheets().remove(urlDarkTheme);
+        }
     }
 
     public void setDarkTheme() {
         primaryScene.getStylesheets().add(urlDarkTheme);
-        createUserScene.getStylesheets().add(urlDarkTheme);
+        if (createUserScene != null) {
+            createUserScene.getStylesheets().add(urlDarkTheme);
+        }
     }
 
 }

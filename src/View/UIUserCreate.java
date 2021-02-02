@@ -1,17 +1,12 @@
 package View;
 
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class UIUserCreate extends GridPane {
 
@@ -25,7 +20,6 @@ public class UIUserCreate extends GridPane {
     TextField inputPhoneNumber = new TextField();
 
     Button submit = new Button("Submit");
-    GridPane root = new GridPane();
 
     public void createPane(){
 
@@ -33,19 +27,21 @@ public class UIUserCreate extends GridPane {
 
     public UIUserCreate(){
         super();
-
-        ColumnConstraints col1, col2, col3, col4;
+        ColumnConstraints col1, col2, col3, col4, col5;
         col1 = new ColumnConstraints();
-        col1.setPercentWidth(25);
+        col1.setPercentWidth(20);
         col2 = new ColumnConstraints();
-        col2.setPercentWidth(25);
+        col2.setPercentWidth(20);
 
         col3 = new ColumnConstraints();
-        col3.setPercentWidth(25);
+        col3.setPercentWidth(20);
         col4 = new ColumnConstraints();
-        col4.setPercentWidth(25);
+        col4.setPercentWidth(20);
 
-        getColumnConstraints().addAll(col1, col2);
+        col5 = new ColumnConstraints();
+        col5.setPercentWidth(20);
+
+        getColumnConstraints().addAll(col1, col2, col3, col4, col5);
         add(firstNameLbl, 0, 0, 1, 1);
         setHalignment(firstNameLbl, HPos.CENTER);
 
@@ -71,5 +67,6 @@ public class UIUserCreate extends GridPane {
         setHalignment(AddressLbl, HPos.CENTER);
 
         add(submit, 4, 1, 1,1);
+        setHalignment(submit, HPos.CENTER);
     }
 }

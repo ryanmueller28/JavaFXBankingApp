@@ -7,6 +7,8 @@ public class Controller {
 
     private AppView view;
 
+    private SQLBaseHelper sqlBaseHelper;
+
     public Controller(AppView view){
         this.view = view;
     }
@@ -20,5 +22,10 @@ public class Controller {
     public void userCreate(){
         UIUserCreate uiUserCreate = new UIUserCreate();
         uiUserCreate.createPane();
+    }
+
+
+    public SQLBaseHelper getSqlBaseHelper() {
+        return sqlBaseHelper;
     }
 }
