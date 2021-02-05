@@ -13,11 +13,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public class Main extends Application implements AppView {
     // Dark Mode css theme
-    private String urlDarkTheme = getClass().getResource("modena_dark.css").toExternalForm();
+    private final String urlDarkTheme = getClass().getResource("modena_dark.css").toExternalForm();
 
     private MenuBar mnuBar;
 

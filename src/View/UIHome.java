@@ -60,9 +60,6 @@ public class UIHome extends GridPane {
         add(exitBtn, 2, 2, 1, 1);
         setHalignment(exitBtn, HPos.LEFT);
 
-
-
-
     }
 
 
